@@ -36,7 +36,7 @@ public class Pedido extends Base implements Calculable {
         calcularTotal();
     }
 
-    public DetallePedido findeDetallePedidoByProducto(Producto producto) { // [cite: 115, 154]
+    public DetallePedido findeDetallePedidoByProducto(Producto producto) {
         for (DetallePedido detalle : detalles) {
             if (detalle.obtenerProducto().obtenerId().equals(producto.obtenerId())) {
                 return detalle;
@@ -45,17 +45,16 @@ public class Pedido extends Base implements Calculable {
         return null;
     }
 
-    public void deleteDetallePedidoByProducto(Producto producto) { // [cite: 116, 155]
+    public void deleteDetallePedidoByProducto(Producto producto) {
         DetallePedido detalleAEliminar = findeDetallePedidoByProducto(producto);
         if (detalleAEliminar != null) {
             detalles.remove(detalleAEliminar);
-            calcularTotal(); // Actualizamos el total al remover un detalle
+            calcularTotal();
         }
     }
 
-    // Implementación de la interfaz Calculable
     @Override
-    public void calcularTotal() { // [cite: 111]
+    public void calcularTotal() {
         double sumaTotal = 0.0;
         for (DetallePedido detalle : detalles) {
             sumaTotal += detalle.obtenerSubtotal();
@@ -63,7 +62,6 @@ public class Pedido extends Base implements Calculable {
         this.total = sumaTotal;
     }
 
-    // Getters y Setters
     public Usuario obtenerUsuario() {
         return usuario;
     }

@@ -30,7 +30,7 @@ public class PedidoServicio {
     public List<Pedido> listarPedidosActivos() {
         List<Pedido> activos = new ArrayList<>();
         for (Pedido ped : pedidos) {
-            if (!ped.estaEliminado()) { // Filtra los dados de baja [cite: 389]
+            if (!ped.estaEliminado()) {
                 activos.add(ped);
             }
         }

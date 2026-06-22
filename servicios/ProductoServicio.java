@@ -33,13 +33,13 @@ public class ProductoServicio {
     public Producto crearProducto(String nombre, Double precio, String descripcion, int stock, String imagen, Boolean disponible, Long idCategoria) {
 
         if (nombre == null || nombre.trim().isEmpty()) {
-            throw new ReglaNegocioExcepcion("El nombre del producto no puede estar vacío."); // [cite: 323]
+            throw new ReglaNegocioExcepcion("El nombre del producto no puede estar vacío.");
         }
         if (precio == null || precio < 0) {
-            throw new ReglaNegocioExcepcion("El precio no puede ser menor a 0."); // [cite: 205, 323]
+            throw new ReglaNegocioExcepcion("El precio no puede ser menor a 0.");
         }
         if (stock < 0) {
-            throw new ReglaNegocioExcepcion("El stock no puede ser negativo."); // [cite: 205, 323]
+            throw new ReglaNegocioExcepcion("El stock no puede ser negativo.");
         }
 
         Categoria categoriaAsignada = categoriaServicio.buscarPorId(idCategoria);

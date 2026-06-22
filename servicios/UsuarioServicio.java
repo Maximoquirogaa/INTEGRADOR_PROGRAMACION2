@@ -56,12 +56,11 @@ public class UsuarioServicio {
                 return usr;
             }
         }
-        // Selección por id: si no existe o está eliminado se informa [cite: 372, 373]
         throw new EntidadNoEncontradaExcepcion("No se encontró el usuario con ID: " + id + " o se encuentra eliminado.");
     }
 
     public void editarUsuario(Long id, String nuevoNombre, String nuevoApellido, String nuevoMail, String nuevoCelular) {
-        Usuario usr = buscarPorId(id); // Selección por id [cite: 372]
+        Usuario usr = buscarPorId(id);
 
         if (nuevoNombre != null && !nuevoNombre.trim().isEmpty()) {
             usr.establecerNombre(nuevoNombre.trim());

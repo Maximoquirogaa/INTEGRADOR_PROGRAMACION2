@@ -14,7 +14,7 @@ public class CategoriaServicio {
 
     public CategoriaServicio() {
         this.categorias = new ArrayList<>();
-        this.generadorId = 1L; // Simulamos el comportamiento autoincremental de una base de datos
+        this.generadorId = 1L;
     }
 
     public List<Categoria> listarCategoriasActivas() {

@@ -1,9 +1,9 @@
 package entidades;
 
 public class DetallePedido extends Base {
-    private int cantidad; //
-    private Double subtotal; //
-    private Producto producto; // Relación N:1 con Producto [cite: 156]
+    private int cantidad;
+    private Double subtotal;
+    private Producto producto;
 
     public DetallePedido() {
         super();
@@ -16,7 +16,6 @@ public class DetallePedido extends Base {
         this.producto = producto;
     }
 
-    // Getters y Setters
     public int obtenerCantidad() { return cantidad; }
     public void establecerCantidad(int cantidad) { this.cantidad = cantidad; }
 
