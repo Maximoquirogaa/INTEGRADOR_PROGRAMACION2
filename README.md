@@ -4,6 +4,8 @@ Este proyecto es el Trabajo Práctico Integrador para la materia **Programación
 
 Se trata de un sistema de gestión de pedidos de comida interactivo por consola. Implementa persistencia de datos real mediante una base de datos relacional (JDBC) y una arquitectura limpia en capas orientada a objetos (POO), garantizando un diseño robusto, cohesivo y escalable.
 
+Link PDF: https://drive.google.com/file/d/1iO5c9D7hbLpT9IZqFIvQ44FXRAxfqgLV/view?usp=sharing
+
 **Autores:** Santino Barone, Máximo Quiroga, Franco Rios y Fabrizio Simon.
 
 ---
