@@ -49,7 +49,26 @@ Para ejecutar este proyecto en tu entorno local, vas a necesitar:
 
 Sigue estos pasos para levantar el proyecto en tu entorno local:
 
-### 1. Clonar el repositorio
-```bash
-git clone [https://github.com/TU_USUARIO/INTEGRADOR_PROGRAMACION2.git](https://github.com/TU_USUARIO/INTEGRADOR_PROGRAMACION2.git)
-cd INTEGRADOR_PROGRAMACION
+### 1. Descargar el código
+* Clona este repositorio usando Git (`git clone https://github.com/TuUsuario/food-store-tpi.git`) o descarga el archivo `.zip` y descomprímelo.
+* Abre la carpeta del proyecto en tu IDE favorito (IntelliJ IDEA, Eclipse o NetBeans).
+
+### 2. Levantar la Base de Datos
+* Asegúrate de tener encendido tu servidor MySQL (por ejemplo, desde el panel de XAMPP).
+* Abre tu gestor de base de datos (phpMyAdmin, Workbench, etc.).
+* Importa y ejecuta el archivo **`food_store_db.sql`** incluido en la raíz de este proyecto. Esto creará la base de datos `food_store`, todas las tablas necesarias y cargará datos de prueba.
+
+### 3. Configurar Credenciales de Conexión
+* En tu IDE, abre el archivo `src/configuracion/ConexionDB.java`.
+* Verifica que las variables `USUARIO` y `CONTRASENIA` coincidan con las de tu servidor MySQL local (por defecto suele ser `root` y clave vacía `""`).
+
+### 4. Vincular el Driver JDBC
+* Descarga el driver MySQL Connector/J (`mysql-connector-j-8.0.33.jar`) si no lo tienes.
+* Agrégalo a las librerías de tu proyecto en el IDE:
+  * **IntelliJ:** *File > Project Structure > Modules > Dependencies > + > JARs or directories*.
+  * **Eclipse:** *Click derecho en el proyecto > Build Path > Configure Build Path > Libraries > Add External JARs*.
+  * **NetBeans:** *Click derecho en Libraries > Add JAR/Folder*.
+
+### 5. Compilar y Ejecutar
+* Abre la clase principal ubicada en `src/Main.java`.
+* Ejecuta el método `main`.
