@@ -1,8 +1,8 @@
 package enumeraciones;
 
 public enum Rol {
-    ADMIN(1, "Administrador"),
-    USUARIO(2, "Usuario General");
+    ADMINISTRADOR(1, "Administrador"),
+    USUARIO(2, "Usuario_general");
 
     private final int opcion;
     private final String descripcion;
