@@ -44,9 +44,11 @@ public class Usuario extends Base {
 
     @Override
     public String toString() {
-        return "Usuario [ID=" + obtenerId() +
-                ", Nombre=" + nombre + " " + apellido +
-                ", Mail=" + mail +
-                ", Rol=" + rol + "]";
+        return String.format("[ID: %-3d] %-20s | Correo: %-25s | Tel: %-15s | Rol: %s",
+                obtenerId(),
+                (nombre + " " + apellido),
+                mail,
+                celular,
+                rol.obtenerDescripcion());
     }
 }

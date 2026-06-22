@@ -12,7 +12,7 @@ import java.util.List;
 
 public class ProductoServicio {
 
-    private CategoriaServicio categoriaServicio; // Dependencia para validar y armar categorías
+    private CategoriaServicio categoriaServicio;
 
     public ProductoServicio(CategoriaServicio categoriaServicio) {
         this.categoriaServicio = categoriaServicio;
@@ -57,17 +57,19 @@ public class ProductoServicio {
         try (Connection conexion = ConexionDB.obtenerConexion();
              PreparedStatement sentencia = conexion.prepareStatement(sqlInsercion, Statement.RETURN_GENERATED_KEYS)) {
 
+            String imgFinal = (imagen != null && !imagen.trim().isEmpty()) ? imagen.trim() : "";
+
             sentencia.setString(1, nombre.trim());
             sentencia.setDouble(2, precio);
-            sentencia.setString(3, descripcion.trim());
+            sentencia.setString(3, (descripcion != null) ? descripcion.trim() : "");
             sentencia.setInt(4, stock);
-            sentencia.setString(5, imagen.trim());
+            sentencia.setString(5, imgFinal);
             sentencia.setBoolean(6, disponible);
             sentencia.setLong(7, idCategoria);
 
             sentencia.executeUpdate();
 
-            Producto nuevoProducto = new Producto(nombre.trim(), precio, descripcion.trim(), stock, imagen.trim(), disponible, categoriaAsignada);
+            Producto nuevoProducto = new Producto(nombre.trim(), precio, descripcion.trim(), stock, imgFinal, disponible, categoriaAsignada);
             ResultSet llaves = sentencia.getGeneratedKeys();
             if (llaves.next()) {
                 nuevoProducto.establecerId(llaves.getLong(1));
@@ -101,12 +103,13 @@ public class ProductoServicio {
     }
 
     public void editarProducto(Long id, String nuevoNombre, Double nuevoPrecio, String nuevaDescripcion, Integer nuevoStock, Long nuevoIdCategoria) {
-        Producto prodActual = buscarPorId(id); // Valida que exista [cite: 334]
+        Producto prodActual = buscarPorId(id);
 
         String sqlActualizacion = "UPDATE productos SET nombre = ?, precio = ?, descripcion = ?, stock = ?, id_categoria = ? WHERE id = ?";
 
         try (Connection conexion = ConexionDB.obtenerConexion();
              PreparedStatement sentencia = conexion.prepareStatement(sqlActualizacion)) {
+
             String nombreFinal = (nuevoNombre != null && !nuevoNombre.trim().isEmpty()) ? nuevoNombre.trim() : prodActual.obtenerNombre();
 
             Double precioFinal = prodActual.obtenerPrecio();

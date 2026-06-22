@@ -87,12 +87,13 @@ public class Pedido extends Base implements Calculable {
     }
     @Override
     public String toString() {
-        return "Pedido [ID=" + obtenerId() +
-                ", Fecha=" + fecha +
-                ", Estado=" + estado +
-                ", FormaPago=" + formaPago +
-                ", Usuario=" + (usuario != null ? usuario.obtenerNombre() + " " + usuario.obtenerApellido() : "Ninguno") +
-                ", Total=$" + total +
-                ", Cantidad Detalles=" + detalles.size() + "]";
+        String cliente = (usuario != null) ? usuario.obtenerNombre() + " " + usuario.obtenerApellido() : "Desconocido";
+        return String.format("[Pedido ID: %-3d] Fecha: %-10s | Cliente: %-20s | Estado: %-10s | Pago: %-13s | Total: $%7.2f",
+                obtenerId(),
+                fecha.toString(),
+                cliente,
+                estado.obtenerDescripcion(),
+                formaPago.obtenerDescripcion(),
+                total);
     }
 }

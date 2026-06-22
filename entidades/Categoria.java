@@ -32,8 +32,9 @@ public class Categoria extends Base {
 
     @Override
     public String toString() {
-        return "Categoría [ID=" + obtenerId() +
-                ", Nombre=" + nombre +
-                ", Descripción=" + descripcion + "]";
+        return String.format("[ID: %-3d] %-15s | %s",
+                obtenerId(),
+                nombre,
+                descripcion);
     }
 }

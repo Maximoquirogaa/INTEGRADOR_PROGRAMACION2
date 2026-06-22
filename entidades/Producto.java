@@ -82,11 +82,14 @@ public class Producto extends Base {
 
     @Override
     public String toString() {
-        return "Producto [ID=" + obtenerId() +
-                ", Nombre=" + nombre +
-                ", Precio=$" + precio +
-                ", Stock=" + stock +
-                ", Disponible=" + (disponible ? "Sí" : "No") +
-                ", Categoría=" + (categoria != null ? categoria.obtenerNombre() : "Ninguna") + "]";
+        String disp = disponible ? "Sí" : "No";
+        String cat = (categoria != null) ? categoria.obtenerNombre() : "Sin Categoría";
+        return String.format("[ID: %-3d] %-20s | Precio: $%7.2f | Stock: %-4d | Disp: %-2s | Cat: %s",
+                obtenerId(),
+                nombre,
+                precio,
+                stock,
+                disp,
+                cat);
     }
 }

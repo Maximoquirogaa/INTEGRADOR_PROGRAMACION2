@@ -27,8 +27,10 @@ public class DetallePedido extends Base {
 
     @Override
     public String toString() {
-        return "Detalle [Producto=" + (producto != null ? producto.obtenerNombre() : "Ninguno") +
-                ", Cantidad=" + cantidad +
-                ", Subtotal=$" + subtotal + "]";
+        String prod = (producto != null) ? producto.obtenerNombre() : "Producto Desconocido";
+        return String.format("   -> %3dx %-20s | Subtotal: $%7.2f",
+                cantidad,
+                prod,
+                subtotal);
     }
 }

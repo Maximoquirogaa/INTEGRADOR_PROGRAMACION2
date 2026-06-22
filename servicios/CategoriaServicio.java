@@ -124,21 +124,22 @@ public class CategoriaServicio {
             String nombreFinal = catActual.obtenerNombre();
             String descripcionFinal = catActual.obtenerDescripcion();
 
-            if (nuevoNombre != null && !nuevoNombre.trim().isEmpty()) {
-                if (!nuevoNombre.trim().equalsIgnoreCase(catActual.obtenerNombre())) {
+            if (nuevoNombre != null && !nuevoNombre.isBlank()) {
+                String nombreNormalizado = nuevoNombre.trim();
+                if (!nombreNormalizado.equalsIgnoreCase(catActual.obtenerNombre())) {
                     try (PreparedStatement sentenciaVal = conexion.prepareStatement(sqlValidacion)) {
-                        sentenciaVal.setString(1, nuevoNombre.trim());
+                        sentenciaVal.setString(1, nombreNormalizado);
                         sentenciaVal.setLong(2, id);
                         ResultSet resultado = sentenciaVal.executeQuery();
                         if (resultado.next() && resultado.getInt(1) > 0) {
-                            throw new ReglaNegocioExcepcion("Ya existe otra categoría con el nombre: " + nuevoNombre);
+                            throw new ReglaNegocioExcepcion("Ya existe otra categoría con el nombre: " + nombreNormalizado);
                         }
                     }
                 }
-                nombreFinal = nuevoNombre.trim();
+                nombreFinal = nombreNormalizado;
             }
 
-            if (nuevaDescripcion != null && !nuevaDescripcion.trim().isEmpty()) {
+            if (nuevaDescripcion != null && !nuevaDescripcion.isBlank()) {
                 descripcionFinal = nuevaDescripcion.trim();
             }
 

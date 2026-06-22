@@ -50,7 +50,6 @@ public class Main {
             } catch (NumberFormatException e) {
                 System.out.println("Error: Por favor, ingrese un número válido.");
             } catch (Exception e) {
-
                 System.out.println("Ocurrió un error inesperado: " + e.getMessage());
             }
         }
@@ -97,7 +96,8 @@ public class Main {
 
                     case 3:
                         System.out.println("\n--- EDITAR CATEGORÍA ---");
-                        System.out.print("Ingrese el ID de la categoría a editar: ");
+                        categoriaServicio.listarCategoriasActivas().forEach(c -> System.out.println(c.toString()));
+                        System.out.print("\nIngrese el ID de la categoría a editar: ");
                         Long idEditar = Long.parseLong(scanner.nextLine());
 
                         System.out.print("Ingrese el nuevo nombre (o presione Enter para no modificar): ");
@@ -111,7 +111,8 @@ public class Main {
 
                     case 4:
                         System.out.println("\n--- ELIMINAR CATEGORÍA ---");
-                        System.out.print("Ingrese el ID de la categoría a eliminar: ");
+                        categoriaServicio.listarCategoriasActivas().forEach(c -> System.out.println(c.toString()));
+                        System.out.print("\nIngrese el ID de la categoría a eliminar: ");
                         Long idEliminar = Long.parseLong(scanner.nextLine());
 
                         System.out.print("¿Está seguro de eliminar esta categoría? (S/N): ");
@@ -183,8 +184,8 @@ public class Main {
                         System.out.print("Ingrese la URL o ruta de la imagen: ");
                         String imagen = scanner.nextLine();
 
-                        System.out.print("¿Está disponible? (true/false): ");
-                        Boolean disponible = Boolean.parseBoolean(scanner.nextLine());
+                        System.out.print("¿Está disponible? (S/N): "); // Arreglo booleano
+                        Boolean disponible = scanner.nextLine().trim().equalsIgnoreCase("S");
 
                         System.out.print("Ingrese el ID de la categoría a la que pertenece: ");
                         Long idCategoria = Long.parseLong(scanner.nextLine());
@@ -194,28 +195,29 @@ public class Main {
 
                     case 3:
                         System.out.println("\n--- EDITAR PRODUCTO ---");
-                        System.out.print("Ingrese el ID del producto a editar: ");
+                        productoServicio.listarProductosActivos().forEach(p -> System.out.println(p.toString()));
+                        System.out.print("\nIngrese el ID del producto a editar: ");
                         Long idEditar = Long.parseLong(scanner.nextLine());
 
-                        System.out.println("Deje el campo vacío y presione Enter si no desea modificarlo."); // Se permite actualizar uno o más campos [cite: 332]
+                        System.out.println("Deje el campo vacío y presione Enter si no desea modificarlo.");
 
                         System.out.print("Nuevo nombre: ");
                         String nuevoNombre = scanner.nextLine();
 
                         System.out.print("Nuevo precio: ");
                         String precioStr = scanner.nextLine();
-                        Double nuevoPrecio = precioStr.isEmpty() ? null : Double.parseDouble(precioStr);
+                        Double nuevoPrecio = precioStr.isBlank() ? null : Double.parseDouble(precioStr);
 
                         System.out.print("Nueva descripción: ");
                         String nuevaDescripcion = scanner.nextLine();
 
                         System.out.print("Nuevo stock: ");
                         String stockStr = scanner.nextLine();
-                        Integer nuevoStock = stockStr.isEmpty() ? null : Integer.parseInt(stockStr);
+                        Integer nuevoStock = stockStr.isBlank() ? null : Integer.parseInt(stockStr);
 
                         System.out.print("Nuevo ID de categoría: ");
                         String catStr = scanner.nextLine();
-                        Long nuevoIdCategoria = catStr.isEmpty() ? null : Long.parseLong(catStr);
+                        Long nuevoIdCategoria = catStr.isBlank() ? null : Long.parseLong(catStr);
 
                         productoServicio.editarProducto(idEditar, nuevoNombre, nuevoPrecio, nuevaDescripcion, nuevoStock, nuevoIdCategoria);
                         System.out.println("¡Producto actualizado con éxito!");
@@ -223,7 +225,8 @@ public class Main {
 
                     case 4:
                         System.out.println("\n--- ELIMINAR PRODUCTO ---");
-                        System.out.print("Ingrese el ID del producto a eliminar: ");
+                        productoServicio.listarProductosActivos().forEach(p -> System.out.println(p.toString()));
+                        System.out.print("\nIngrese el ID del producto a eliminar: ");
                         Long idEliminar = Long.parseLong(scanner.nextLine());
 
                         System.out.print("¿Está seguro de eliminar este producto? (S/N): ");
@@ -308,7 +311,8 @@ public class Main {
 
                     case 3:
                         System.out.println("\n--- EDITAR USUARIO ---");
-                        System.out.print("Ingrese el ID del usuario a editar: ");
+                        usuarioServicio.listarUsuariosActivos().forEach(u -> System.out.println(u.toString()));
+                        System.out.print("\nIngrese el ID del usuario a editar: ");
                         Long idEditar = Long.parseLong(scanner.nextLine());
 
                         System.out.println("Deje el campo vacío y presione Enter si no desea modificarlo.");
@@ -331,7 +335,8 @@ public class Main {
 
                     case 4:
                         System.out.println("\n--- ELIMINAR USUARIO ---");
-                        System.out.print("Ingrese el ID del usuario a eliminar: ");
+                        usuarioServicio.listarUsuariosActivos().forEach(u -> System.out.println(u.toString()));
+                        System.out.print("\nIngrese el ID del usuario a eliminar: ");
                         Long idEliminar = Long.parseLong(scanner.nextLine());
 
                         System.out.print("¿Está seguro de eliminar este usuario? (S/N): ");
@@ -382,6 +387,9 @@ public class Main {
                         } else {
                             for (var ped : pedidos) {
                                 System.out.println(ped.toString());
+                                for (var det : ped.obtenerDetalles()) {
+                                    System.out.println(det.toString());
+                                }
                             }
                         }
                         break;
@@ -397,7 +405,6 @@ public class Main {
                         int opcionPago = Integer.parseInt(scanner.nextLine());
                         enumeraciones.FormaPago formaPago = enumeraciones.FormaPago.obtenerPorOpcion(opcionPago);
 
-                        // Armado del carrito
                         java.util.Map<Long, Integer> carrito = new java.util.HashMap<>();
                         boolean agregandoProductos = true;
 
@@ -426,7 +433,8 @@ public class Main {
 
                     case 3:
                         System.out.println("\n--- ACTUALIZAR PEDIDO ---");
-                        System.out.print("Ingrese el ID del pedido a modificar: ");
+                        pedidoServicio.listarPedidosActivos().forEach(p -> System.out.println(p.toString()));
+                        System.out.print("\nIngrese el ID del pedido a modificar: ");
                         Long idPedidoEditar = Long.parseLong(scanner.nextLine());
 
                         System.out.println("Nuevos Estados (Ingrese 0 si no desea modificar):");
@@ -453,7 +461,8 @@ public class Main {
 
                     case 4:
                         System.out.println("\n--- ELIMINAR PEDIDO ---");
-                        System.out.print("Ingrese el ID del pedido a eliminar: ");
+                        pedidoServicio.listarPedidosActivos().forEach(p -> System.out.println(p.toString()));
+                        System.out.print("\nIngrese el ID del pedido a eliminar: ");
                         Long idPedidoEliminar = Long.parseLong(scanner.nextLine());
 
                         System.out.print("¿Está seguro de eliminar este pedido? (S/N): ");
